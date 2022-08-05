@@ -54,6 +54,8 @@ public class User extends CoreEntity{
     @Lob
     private String photo;
     private Long globalAdminUserId;
+    private Long countryId;
+    private String country;
 
 // --------logistic  userType -----------
 
