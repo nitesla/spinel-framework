@@ -27,4 +27,8 @@ public class Permission extends CoreEntity{
         this.url = url;
         this.permissionType = permissionType;
     }
+
+    public Permission() {
+
+    }
 }
