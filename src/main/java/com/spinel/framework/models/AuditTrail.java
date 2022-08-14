@@ -3,10 +3,7 @@ package com.spinel.framework.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
@@ -25,7 +22,8 @@ public class AuditTrail {
         private String ipAddress;
         private int status;
         private LocalDateTime requestTime = LocalDateTime.now();
-
+        @Transient
+        private String roleName;
 
 
 

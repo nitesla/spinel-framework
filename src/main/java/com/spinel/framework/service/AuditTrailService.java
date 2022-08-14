@@ -1,11 +1,13 @@
 package com.spinel.framework.service;
 
 
-
-
 import com.spinel.framework.exceptions.NotFoundException;
 import com.spinel.framework.models.AuditTrail;
+import com.spinel.framework.models.Role;
+import com.spinel.framework.models.User;
 import com.spinel.framework.repositories.AuditTrailRepository;
+import com.spinel.framework.repositories.RoleRepository;
+import com.spinel.framework.repositories.UserRepository;
 import com.spinel.framework.utils.AuditTrailFlag;
 import com.spinel.framework.utils.CustomResponseCode;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +28,9 @@ public class AuditTrailService {
 
     private AsyncService asyncService;
     private AuditTrailRepository auditTrailRepository;
+    private UserRepository userRepository;
+
+    private RoleRepository roleRepository;
     private final ModelMapper mapper;
 
     public AuditTrailService(AsyncService asyncService,AuditTrailRepository auditTrailRepository, ModelMapper mapper) {
@@ -59,6 +64,14 @@ public class AuditTrailService {
         if(auditTrails == null){
             throw new NotFoundException(CustomResponseCode.NOT_FOUND_EXCEPTION, " No record found !");
         }
+
+        auditTrails.getContent().forEach(auditTrail -> {
+            User user = userRepository.findByUsername(auditTrail.getUsername());
+            if(user.getRoleId() !=null){
+                Role role = roleRepository.getOne(user.getRoleId());
+                auditTrail.setRoleName(role.getName());
+            }
+        });
         return auditTrails;
 
     }
