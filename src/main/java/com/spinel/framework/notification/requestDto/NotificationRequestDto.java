@@ -22,7 +22,8 @@ public class NotificationRequestDto {
     private Boolean email;
     private Boolean inApp;
     private String message;
-    private List<RecipientRequest> recipient;
+    private List<RecipientRequest> recipients;
+    private String recipient;
     private Boolean sms;
     private String title;
 

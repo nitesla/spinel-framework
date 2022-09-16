@@ -1,8 +1,6 @@
 package com.spinel.framework.service;
 
 import com.google.gson.Gson;
-
-
 import com.spinel.framework.dto.requestDto.*;
 import com.spinel.framework.dto.responseDto.ActivateUserResponse;
 import com.spinel.framework.dto.responseDto.RoleUserStat;
@@ -150,7 +148,9 @@ public class UserService {
         recipient.add(RecipientRequest.builder()
                 .email(emailRecipient.getEmail())
                 .build());
-        notificationRequestDto.setRecipient(recipient);
+        notificationRequestDto.setRecipients(recipient);
+//        notificationRequestDto.setRecipient(emailRecipient.getEmail());
+        notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
         notificationService.emailNotificationRequest(notificationRequestDto);
 
         SmsRequest smsRequest = SmsRequest.builder()
@@ -428,7 +428,9 @@ public class UserService {
             recipient.add(RecipientRequest.builder()
                     .email(emailRecipient.getEmail())
                     .build());
-            notificationRequestDto.setRecipient(recipient);
+            notificationRequestDto.setRecipients(recipient);
+//        notificationRequestDto.setRecipient(emailRecipient.getEmail());
+            notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
             notificationService.emailNotificationRequest(notificationRequestDto);
 
 
@@ -472,7 +474,9 @@ public class UserService {
             recipient.add(RecipientRequest.builder()
                     .email(emailRecipient.getEmail())
                     .build());
-            notificationRequestDto.setRecipient(recipient);
+            notificationRequestDto.setRecipients(recipient);
+            //        notificationRequestDto.setRecipient(emailRecipient.getEmail());
+            notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
             notificationService.emailNotificationRequest(notificationRequestDto);
 
             SmsRequest smsRequest = SmsRequest.builder()
@@ -646,7 +650,9 @@ public class UserService {
         recipient.add(RecipientRequest.builder()
                 .email(emailRecipient.getEmail())
                 .build());
-        notificationRequestDto.setRecipient(recipient);
+        notificationRequestDto.setRecipients(recipient);
+        //        notificationRequestDto.setRecipient(emailRecipient.getEmail());
+        notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
         notificationService.emailNotificationRequest(notificationRequestDto);
 
         SmsRequest smsRequest = SmsRequest.builder()
