@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
@@ -44,4 +45,7 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
     Integer countAllByIsActive(boolean isActive);
     List<Role> findAll();
     Integer countAllByName(String name);
+
+    @Query(value = "SELECT count(User.id) as count from User, Role WHERE Role.id = :id AND Role.id = User.roleId AND User.isActive = true", nativeQuery = true)
+    Map getCountOfActiveUsers(@Param("id") Long id);
 }

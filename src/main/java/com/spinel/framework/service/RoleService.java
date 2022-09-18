@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -208,6 +209,10 @@ public class RoleService {
                                 + " " +  role.getName(),1, Utility.getClientIp(request1));
         roleRepository.save(role);
 
+    }
+
+    public Map getCountOfActiveUsersAssignedToARole(Long roleId) {
+        return roleRepository.getCountOfActiveUsers(roleId);
     }
 
 

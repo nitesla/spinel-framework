@@ -40,10 +40,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @SuppressWarnings("ALL")
@@ -843,6 +840,11 @@ public class UserService {
 
     public Page<User> findPartName(String partName, int page, int pageSize){
         return userRepository.findByPartName(partName, PageRequest.of(page, pageSize));
+    }
+
+    public List<Map> getGroupUserByCountry() {
+        System.err.println(userRepository.groupUserByCountry().toString());
+        return userRepository.groupUserByCountry();
     }
 
 }

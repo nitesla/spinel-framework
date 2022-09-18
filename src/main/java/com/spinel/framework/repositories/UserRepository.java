@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -45,9 +46,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
             " AND ((:role IS NULL) OR (:role IS NOT NULL AND u.role = :role))"+
             " AND ((:roleId IS NULL) OR (:roleId IS NOT NULL AND u.roleId = :roleId))"+
             " AND ((:isActive IS NULL) OR (:isActive IS NOT NULL AND u.isActive = :isActive))"+
-            "AND ((:startDate IS NULL) OR (:startDate IS NOT NULL AND u.createdDate >= :startDate)) " +
-            "AND ((:endDate IS NULL) OR (:endDate IS NOT NULL AND u.createdDate >= :endDate)) " +
-            " AND ((:email IS NULL) OR (:email IS NOT NULL AND u.email = :email)) order by u.id")
+            " AND ((:email IS NULL) OR (:email IS NOT NULL AND u.email = :email))"+
+            " AND u.createdDate BETWEEN :startDate AND :endDate order by u.id ")
     Page<User> findUsers(@Param("firstName")String firstName,
                          @Param("lastName")String lastName,
                          @Param("phone")String phone,
@@ -130,4 +130,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     int countAllByIsActive(Boolean isActive);
     int countAllByUserCategory(String userCategory);
+
+    @Query("SELECT COUNT(u.id) as count, u.countryId as countryId, u.country as country from User u group by u.countryId order by count(u.id) desc")
+    List<Map> groupUserByCountry();
 }
