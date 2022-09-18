@@ -10,6 +10,7 @@ import com.spinel.framework.exceptions.BadRequestException;
 import com.spinel.framework.exceptions.ConflictException;
 import com.spinel.framework.exceptions.NotFoundException;
 import com.spinel.framework.helpers.CoreValidations;
+import com.spinel.framework.helpers.DateFormatter;
 import com.spinel.framework.helpers.Encryptions;
 import com.spinel.framework.models.PreviousPasswords;
 import com.spinel.framework.models.Role;
@@ -250,8 +251,11 @@ public class UserService {
      * </summary>
      * <remarks>this method is responsible for getting all records in pagination</remarks>
      */
-    public Page<User> findAll(String firstName,String lastName,String phone,String role,Long roleId,Boolean isActive,LocalDateTime startDate, LocalDateTime endDate,String email, PageRequest pageRequest ){
-        Page<User> users = userRepository.findUsers(firstName,lastName,phone,role,roleId,isActive,startDate,endDate,email,pageRequest);
+    public Page<User> findAll(String firstName,String lastName,String phone,String role,Long roleId,Boolean isActive,String startDate, String endDate,String email, PageRequest pageRequest ){
+        LocalDateTime start =  Objects.nonNull(startDate) ? DateFormatter.convertToLocalDate(startDate) : null;
+        LocalDateTime end = Objects.nonNull(endDate) ? DateFormatter.convertToLocalDate(endDate) : null;
+        DateFormatter.checkStartAndEndDate(start, end);
+        Page<User> users = userRepository.findUsers(firstName,lastName,phone,role,roleId,isActive,start,end,email,pageRequest);
         if(users == null){
             throw new NotFoundException(CustomResponseCode.NOT_FOUND_EXCEPTION, " No record found !");
         }

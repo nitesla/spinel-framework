@@ -47,7 +47,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             " AND ((:roleId IS NULL) OR (:roleId IS NOT NULL AND u.roleId = :roleId))"+
             " AND ((:isActive IS NULL) OR (:isActive IS NOT NULL AND u.isActive = :isActive))"+
             " AND ((:email IS NULL) OR (:email IS NOT NULL AND u.email = :email))"+
-            " AND u.createdDate BETWEEN :startDate AND :endDate order by u.id ")
+            " AND ((:startDate IS NULL) AND (:endDate IS NULL) OR (u.createdDate BETWEEN :startDate AND :endDate)) order by u.id")
     Page<User> findUsers(@Param("firstName")String firstName,
                          @Param("lastName")String lastName,
                          @Param("phone")String phone,
