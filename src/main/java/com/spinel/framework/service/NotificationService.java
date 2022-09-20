@@ -33,6 +33,7 @@ import java.util.Properties;
 @Service
 public class NotificationService {
 
+    @Value("${mail.from}")
     private String mailFrom;
 
     @Value("${mail.sender}")
@@ -88,12 +89,64 @@ public class NotificationService {
         this.mapper = mapper;
     }
 
+    public void emailNotificationRequest (NotificationRequestDto notificationRequestDto) {
+
+        try {
+            Properties props = System.getProperties();
+            props.put("mail.transport.protocol", "smtp");
+            props.put("mail.smtp.port", mailSmtpPort);
+            props.put("mail.smtp.starttls.enable", "true");
+            props.put("mail.smtp.auth", "true");
+
+            // Create a Session object to represent a mail session with the specified properties.
+            Session session = Session.getDefaultInstance(props);
+
+            // Create a message with the specified information.
+            MimeMessage msg = new MimeMessage(session);
+
+            msg.setFrom(new InternetAddress(mailFrom, mailSender));
+
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(notificationRequestDto.getRecipient()));
+
+
+            msg.setSubject(subject);
+            msg.setContent(notificationRequestDto.getMessage(), "text/html");
+
+            // Add a configuration set header. Comment or delete the
+            // next line if you are not using a configuration set
+//            msg.setHeader("X-SES-CONFIGURATION-SET", CONFIGSET);
+
+            // Create a transport.
+            Transport transport = session.getTransport();
+
+            // Send the message.
+            try {
+                logger.info("Sending...");
+
+                // Connect to Amazon SES using the SMTP username and password you specified above.
+                transport.connect(mailHostName, mailUsername, mailPassword);
+
+                // Send the email.
+                transport.sendMessage(msg, msg.getAllRecipients());
+                logger.info("Email sent!");
+            } catch (Exception ex) {
+                logger.info("The email was not sent.");
+                logger.error("Error message: " + ex.getMessage());
+            } finally {
+                // Close and terminate the connection.
+                transport.close();
+            }
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
 
-
-    public void emailNotificationRequest1 (NotificationRequestDto notificationRequestDto){
+    public void emailNotificationRequestOption1 (NotificationRequestDto notificationRequestDto){
 
 
         Map<String,String> map = new HashMap();
@@ -133,60 +186,6 @@ public class NotificationService {
         map.put("fingerprint", uniqueId);
         api.postNotification(voiceOtp, voiceOtpRequest, map);
 
-    }
-
-    public void emailNotificationRequest(NotificationRequestDto notificationRequestDto) {
-
-        try {
-            Properties props = System.getProperties();
-            props.put("mail.transport.protocol", "smtp");
-            props.put("mail.smtp.port", mailSmtpPort);
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.auth", "true");
-
-            // Create a Session object to represent a mail session with the specified properties.
-            Session session = Session.getDefaultInstance(props);
-
-            // Create a message with the specified information.
-            MimeMessage msg = new MimeMessage(session);
-
-            msg.setFrom(new InternetAddress(mailFrom, mailSender));
-
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(notificationRequestDto.getRecipient()));
-
-
-            msg.setSubject(notificationRequestDto.getTitle());
-            msg.setContent(notificationRequestDto.getMessage(), "text/html");
-
-            // Add a configuration set header. Comment or delete the
-            // next line if you are not using a configuration set
-            msg.setHeader("X-SES-CONFIGURATION-SET", CONFIGSET);
-
-            // Create a transport.
-            Transport transport = session.getTransport();
-
-            // Send the message.
-            try {
-                System.out.println("Sending...");
-
-                // Connect to Amazon SES using the SMTP username and password you specified above.
-                transport.connect(mailHostName, mailUsername, mailPassword);
-
-                // Send the email.
-                transport.sendMessage(msg, msg.getAllRecipients());
-                System.out.println("Email sent!");
-            } catch (Exception ex) {
-                System.out.println("The email was not sent.");
-                System.out.println("Error message: " + ex.getMessage());
-            } finally {
-                // Close and terminate the connection.
-                transport.close();
-            }
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

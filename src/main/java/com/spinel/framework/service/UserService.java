@@ -18,8 +18,6 @@ import com.spinel.framework.models.User;
 import com.spinel.framework.models.UserRole;
 import com.spinel.framework.notification.requestDto.NotificationRequestDto;
 import com.spinel.framework.notification.requestDto.RecipientRequest;
-import com.spinel.framework.notification.requestDto.SmsRequest;
-import com.spinel.framework.notification.requestDto.WhatsAppRequest;
 import com.spinel.framework.repositories.PreviousPasswordRepository;
 import com.spinel.framework.repositories.RoleRepository;
 import com.spinel.framework.repositories.UserRepository;
@@ -148,20 +146,20 @@ public class UserService {
                 .build());
         notificationRequestDto.setRecipients(recipient);
 //        notificationRequestDto.setRecipient(emailRecipient.getEmail());
-        notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
+        notificationRequestDto.setRecipient(emailRecipient.getEmail());
         notificationService.emailNotificationRequest(notificationRequestDto);
 
-        SmsRequest smsRequest = SmsRequest.builder()
-                .message(msg)
-                .phoneNumber(emailRecipient.getPhone())
-                .build();
-        notificationService.smsNotificationRequest(smsRequest);
+//        SmsRequest smsRequest = SmsRequest.builder()
+//                .message(msg)
+//                .phoneNumber(emailRecipient.getPhone())
+//                .build();
+//        notificationService.smsNotificationRequest(smsRequest);
 
-        WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
-                .message(msg)
-                .phoneNumber(emailRecipient.getPhone())
-                .build();
-        whatsAppService.whatsAppNotification(whatsAppRequest);
+//        WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
+//                .message(msg)
+//                .phoneNumber(emailRecipient.getPhone())
+//                .build();
+//        whatsAppService.whatsAppNotification(whatsAppRequest);
 
 
         auditTrailService
@@ -431,22 +429,22 @@ public class UserService {
                     .build());
             notificationRequestDto.setRecipients(recipient);
 //        notificationRequestDto.setRecipient(emailRecipient.getEmail());
-            notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
+            notificationRequestDto.setRecipient(emailRecipient.getEmail());
             notificationService.emailNotificationRequest(notificationRequestDto);
 
 
-            SmsRequest smsRequest = SmsRequest.builder()
-                    .message("Activation Otp " + " " + user.getResetToken())
-                    .phoneNumber(emailRecipient.getPhone())
-                    .build();
-            notificationService.smsNotificationRequest(smsRequest);
+//            SmsRequest smsRequest = SmsRequest.builder()
+//                    .message("Activation Otp " + " " + user.getResetToken())
+//                    .phoneNumber(emailRecipient.getPhone())
+//                    .build();
+//            notificationService.smsNotificationRequest(smsRequest);
 
 
-            WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
-                    .message("Activation Otp " + " " + user.getResetToken())
-                    .phoneNumber(emailRecipient.getPhone())
-                    .build();
-            whatsAppService.whatsAppNotification(whatsAppRequest);
+//            WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
+//                    .message("Activation Otp " + " " + user.getResetToken())
+//                    .phoneNumber(emailRecipient.getPhone())
+//                    .build();
+//            whatsAppService.whatsAppNotification(whatsAppRequest);
 
 //            VoiceOtpRequest voiceOtpRequest = VoiceOtpRequest.builder()
 //                    .message("Activation Otp is " + " " + user.getResetToken())
@@ -477,20 +475,20 @@ public class UserService {
                     .build());
             notificationRequestDto.setRecipients(recipient);
             //        notificationRequestDto.setRecipient(emailRecipient.getEmail());
-            notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
+            notificationRequestDto.setRecipient(emailRecipient.getEmail());
             notificationService.emailNotificationRequest(notificationRequestDto);
 
-            SmsRequest smsRequest = SmsRequest.builder()
-                    .message("Activation Otp " + " " + userPhone.getResetToken())
-                    .phoneNumber(emailRecipient.getPhone())
-                    .build();
-            notificationService.smsNotificationRequest(smsRequest);
+//            SmsRequest smsRequest = SmsRequest.builder()
+//                    .message("Activation Otp " + " " + userPhone.getResetToken())
+//                    .phoneNumber(emailRecipient.getPhone())
+//                    .build();
+//            notificationService.smsNotificationRequest(smsRequest);
 
-            WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
-                    .message("Activation Otp " + " " + userPhone.getResetToken())
-                    .phoneNumber(emailRecipient.getPhone())
-                    .build();
-            whatsAppService.whatsAppNotification(whatsAppRequest);
+//            WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
+//                    .message("Activation Otp " + " " + userPhone.getResetToken())
+//                    .phoneNumber(emailRecipient.getPhone())
+//                    .build();
+//            whatsAppService.whatsAppNotification(whatsAppRequest);
 
 //            VoiceOtpRequest voiceOtpRequest = VoiceOtpRequest.builder()
 //                    .message("Activation Otp is " + " " + userPhone.getResetToken())
@@ -653,20 +651,20 @@ public class UserService {
                 .build());
         notificationRequestDto.setRecipients(recipient);
         //        notificationRequestDto.setRecipient(emailRecipient.getEmail());
-        notificationRequestDto.setRecipient("raheema.o@spinel.consulting");
+        notificationRequestDto.setRecipient(emailRecipient.getEmail());
         notificationService.emailNotificationRequest(notificationRequestDto);
 
-        SmsRequest smsRequest = SmsRequest.builder()
-                .message("Activation Otp " + " " + user.getResetToken())
-                .phoneNumber(emailRecipient.getPhone())
-                .build();
-        notificationService.smsNotificationRequest(smsRequest);
+//        SmsRequest smsRequest = SmsRequest.builder()
+//                .message("Activation Otp " + " " + user.getResetToken())
+//                .phoneNumber(emailRecipient.getPhone())
+//                .build();
+//        notificationService.smsNotificationRequest(smsRequest);
 
-        WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
-                .message("Activation Otp " + " " + user.getResetToken())
-                .phoneNumber(emailRecipient.getPhone())
-                .build();
-        whatsAppService.whatsAppNotification(whatsAppRequest);
+//        WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
+//                .message("Activation Otp " + " " + user.getResetToken())
+//                .phoneNumber(emailRecipient.getPhone())
+//                .build();
+//        whatsAppService.whatsAppNotification(whatsAppRequest);
 
 //        VoiceOtpRequest voiceOtpRequest = VoiceOtpRequest.builder()
 //                .message("Activation Otp is " + " " + user.getResetToken())
