@@ -18,6 +18,7 @@ import com.spinel.framework.models.User;
 import com.spinel.framework.models.UserRole;
 import com.spinel.framework.notification.requestDto.NotificationRequestDto;
 import com.spinel.framework.notification.requestDto.RecipientRequest;
+import com.spinel.framework.notification.requestDto.ResendOtpDto;
 import com.spinel.framework.repositories.PreviousPasswordRepository;
 import com.spinel.framework.repositories.RoleRepository;
 import com.spinel.framework.repositories.UserRepository;
@@ -848,5 +849,44 @@ public class UserService {
         System.err.println(userRepository.groupUserByCountry().toString());
         return userRepository.groupUserByCountry();
     }
+
+    public void resendOTP(ResendOtpDto request) {
+        coreValidations.validateResendOTP(request);
+        User user = userRepository.findByEmail(request.getEmail());
+        if (user == null) {
+            throw new NotFoundException(CustomResponseCode.NOT_FOUND_EXCEPTION, "Invalid email");
+        }
+        user.setResetToken(Utility.registrationCode("HHmmss"));
+        user.setResetTokenExpirationDate(Utility.tokenExpiration());
+        userRepository.save(user);
+
+        String msg = "Hello " + " " + user.getFirstName() + " " + user.getLastName()
+                + "     Username :" + " "+ user.getUsername()
+                + "     Activation OTP :" + " "+ user.getResetToken() ;
+
+        NotificationRequestDto notificationRequestDto = new NotificationRequestDto();
+        User emailRecipient = userRepository.getOne(user.getId());
+        notificationRequestDto.setMessage(msg);
+        List<RecipientRequest> recipient = new ArrayList<>();
+        recipient.add(RecipientRequest.builder()
+                .email(emailRecipient.getEmail())
+                .build());
+        notificationRequestDto.setRecipients(recipient);
+        notificationRequestDto.setRecipient(emailRecipient.getEmail());
+        notificationService.emailNotificationRequest(notificationRequestDto);
+
+//        SmsRequest smsRequest = SmsRequest.builder()
+//                .message(msg)
+//                .phoneNumber(emailRecipient.getPhone())
+//                .build();
+//        notificationService.smsNotificationRequest(smsRequest);
+
+//        WhatsAppRequest whatsAppRequest = WhatsAppRequest.builder()
+//                .message(msg)
+//                .phoneNumber(emailRecipient.getPhone())
+//                .build();
+//        whatsAppService.whatsAppNotification(whatsAppRequest);
+    }
+
 
 }

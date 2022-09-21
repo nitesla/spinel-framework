@@ -10,6 +10,7 @@ import com.spinel.framework.exceptions.NotFoundException;
 import com.spinel.framework.models.Role;
 import com.spinel.framework.models.RolePermission;
 import com.spinel.framework.models.User;
+import com.spinel.framework.notification.requestDto.ResendOtpDto;
 import com.spinel.framework.repositories.PermissionRepository;
 import com.spinel.framework.repositories.RolePermissionRepository;
 import com.spinel.framework.repositories.RoleRepository;
@@ -213,6 +214,16 @@ public class CoreValidations {
 //            throw new BadRequestException(CustomResponseCode.BAD_REQUEST, "Page size cannot be empty");
 //
 //    }
+
+    public void validateResendOTP(ResendOtpDto request) {
+        if (request.getEmail() != null && !request.getEmail().isEmpty()) {
+            if (!Utility.validEmail(request.getEmail().trim())) {
+                throw new BadRequestException(CustomResponseCode.BAD_REQUEST, "Invalid Email Address");
+            }
+        } else {
+            throw new BadRequestException(CustomResponseCode.BAD_REQUEST, "Email cannot be empty");
+        }
+    }
 
 
 }
