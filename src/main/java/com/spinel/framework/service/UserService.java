@@ -888,5 +888,9 @@ public class UserService {
 //        whatsAppService.whatsAppNotification(whatsAppRequest);
     }
 
+    public ActivateUserResponse validateOtpAndActivateUser(ActivateUserAccountDto request) {
+        return activateUser(request);
+    }
+
 
 }
