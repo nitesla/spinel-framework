@@ -1,8 +1,6 @@
 package com.spinel.framework.exceptions;
 
 
-
-
 import com.spinel.framework.dto.responseDto.Response;
 import com.spinel.framework.helpers.ResponseHelper;
 import com.spinel.framework.loggers.LoggerUtil;
@@ -11,19 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
-import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("ALL")
 @Slf4j
-@ControllerAdvice(annotations = RestController.class, basePackages = "com.sabi.api.controller")
+@ControllerAdvice(annotations = RestController.class, basePackages = "com.spinel.datacollection.api.controller")
 @ResponseBody
 public class ServiceApiAdvice {
 

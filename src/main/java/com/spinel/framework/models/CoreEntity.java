@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 
 @Getter
@@ -25,11 +25,11 @@ public abstract class CoreEntity implements Serializable {
     private Long id;
 
     @ApiModelProperty(hidden = true)
-    private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDate createdDate = LocalDate.now();
 
     @UpdateTimestamp
     @ApiModelProperty(hidden = true)
-    private LocalDateTime updatedDate = LocalDateTime.now();
+    private LocalDate updatedDate = LocalDate.now();
 
     private Long createdBy;
     private Long updatedBy;

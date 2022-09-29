@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -26,8 +27,8 @@ public class UserResponse {
     private String phone;
     private String username;
     private String photo;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+    private LocalDate createdDate;
+    private LocalDate updatedDate;
     private Long createdBy;
     private Long updatedBy;
     private Boolean isActive;
